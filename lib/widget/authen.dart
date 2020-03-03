@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:may/utility/my_style.dart';
+import 'package:may/widget/register.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   @override
 
-  // Field sakjdf;asldjf;alsjd sladfalskdjfl;ksadjfl
+  // Field 
 
   // Method
   Widget mySizebox() {
@@ -27,7 +28,14 @@ class _AuthenState extends State<Authen> {
           'SignUp',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          print('you click SignUp');
+
+          MaterialPageRoute route =MaterialPageRoute(builder: (BuildContext buildContext){return Register();});
+          Navigator.of(context).push(route);
+
+
+        },
       ),
     );
   }
@@ -90,13 +98,13 @@ class _AuthenState extends State<Authen> {
 
   Widget showAppName() {
     return Text(
-      'RETURN GLO',
+      'ระบบงานงบการเงิน',
       style: GoogleFonts.tradeWinds(
           textStyle: TextStyle(
         color: MyStyle().darkColor,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
-        fontSize: 30.0,
+        fontSize: 35.0,
       )),
     );
   }

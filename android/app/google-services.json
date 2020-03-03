@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "605785703774",
+    "firebase_url": "https://maymay-d7c9c.firebaseio.com",
+    "project_id": "maymay-d7c9c",
+    "storage_bucket": "maymay-d7c9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605785703774:android:f2aa81872cdf39357efbcf",
+        "android_client_info": {
+          "package_name": "com.maymay.may"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605785703774-i8t8ahn3jnsho8c4ae9rcv891agso2a2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE9ZvtO518dc7xsQchXCkx_4kCbGkdv0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605785703774-i8t8ahn3jnsho8c4ae9rcv891agso2a2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
