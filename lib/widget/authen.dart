@@ -22,8 +22,11 @@ class _AuthenState extends State<Authen> {
   Widget signUpButton() {
     return Expanded(
       child: OutlineButton(
-        borderSide: BorderSide(color: MyStyle().darkColor),
-        child: Text('SignUp'),
+        borderSide: BorderSide(color: MyStyle().primaryColor),
+        child: Text(
+          'SignUp',
+          style: TextStyle(color: Colors.white),
+        ),
         onPressed: () {},
       ),
     );
@@ -32,7 +35,7 @@ class _AuthenState extends State<Authen> {
   Widget signInButton() {
     return Expanded(
       child: RaisedButton(
-        color: MyStyle().darkColor,
+        color: MyStyle().primaryColor,
         child: Text(
           'Sigh In',
           style: TextStyle(color: Colors.white),
@@ -87,7 +90,7 @@ class _AuthenState extends State<Authen> {
 
   Widget showAppName() {
     return Text(
-      'GLO MOMAY',
+      'RETURN GLO',
       style: GoogleFonts.tradeWinds(
           textStyle: TextStyle(
         color: MyStyle().darkColor,
@@ -103,7 +106,8 @@ class _AuthenState extends State<Authen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            colors: <Color>[Colors.white, MyStyle().primaryColor],radius: 4.0,
+            colors: <Color>[Colors.white, MyStyle().primaryColor],
+            radius: 1.0,
           ),
         ),
         child: Center(
