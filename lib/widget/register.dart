@@ -184,7 +184,7 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  Future<Void> uploadAvatar() async {
+  Future<void> uploadAvatar() async {
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
     Random random = Random();

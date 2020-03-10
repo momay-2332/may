@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:may/utility/my_style.dart';
+import 'package:may/utility/normal_dialog.dart';
 import 'package:may/widget/register.dart';
 import 'package:may/widget/my_service.dart';
 
@@ -13,6 +16,7 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   // Field
   bool status = true;
+  String user, password;
 
   // Method
 
@@ -26,18 +30,22 @@ class _AuthenState extends State<Authen> {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser firebaseUser = await auth.currentUser();
     if (firebaseUser != null) {
-      MaterialPageRoute route =
-          MaterialPageRoute(builder: (BuildContext buildContext) {
-        return MyService();
-      });
-      Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route) {
-        return false;
-      });
+      routeToMyService();
     } else {
       setState(() {
         status = false;
       });
     }
+  }
+
+  void routeToMyService() {
+     MaterialPageRoute route =
+        MaterialPageRoute(builder: (BuildContext buildContext) {
+      return MyService();
+    });
+    Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route) {
+      return false;
+    });
   }
 
   Widget showPrecess() {
@@ -49,12 +57,16 @@ class _AuthenState extends State<Authen> {
   Widget mySizebox() {
     return SizedBox(
       width: 5.0,
+      height: 10.0,
     );
   }
 
   Widget signUpButton() {
     return Expanded(
       child: OutlineButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         borderSide: BorderSide(color: MyStyle().primaryColor),
         child: Text(
           'SignUp',
@@ -76,19 +88,44 @@ class _AuthenState extends State<Authen> {
   Widget signInButton() {
     return Expanded(
       child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         color: MyStyle().primaryColor,
         child: Text(
           'Sigh In',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          if (user == null ||
+              user.isEmpty ||
+              password == null ||
+              password.isEmpty) {
+            normalDialog(context, 'Have Space', 'Please Fill Every Blank');
+          } else {
+            checkAuthen();
+          }
+        },
       ),
     );
   }
 
+  Future<void> checkAuthen() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth
+        .signInWithEmailAndPassword(email: user, password: password)
+        .then((response) {
+          routeToMyService();
+        })
+        .catchError((error) {
+          String title = error.code;
+          String message = error.message;
+          normalDialog(context, title, message);
+        });
+  }
+
   Widget showButton() {
     return Container(
-      color: Colors.lime,
       width: 250.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -105,9 +142,26 @@ class _AuthenState extends State<Authen> {
   Widget passwordForm() {
     return Container(
       width: 250.0,
-      child: TextField(
-        obscureText: true,
-        decoration: InputDecoration(hintText: 'Password :'),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0), color: Colors.white54),
+        height: 35.0,
+        child: TextField(
+          onChanged: (value) => password = value.trim(),
+          style: TextStyle(color: MyStyle().darkColor),
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.lock_open,
+                color: Colors.white,
+              ),
+              contentPadding: EdgeInsets.only(
+                left: 20.0,
+              ),
+              border: InputBorder.none,
+              hintText: 'Password :',
+              hintStyle: TextStyle(color: MyStyle().darkColor)),
+        ),
       ),
     );
   }
@@ -115,8 +169,26 @@ class _AuthenState extends State<Authen> {
   Widget userForm() {
     return Container(
       width: 250.0,
-      child: TextField(
-        decoration: InputDecoration(hintText: 'User :'),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0), color: Colors.white54),
+        height: 35.0,
+        child: TextField(
+          onChanged: (value) => user = value.trim(),
+          style: TextStyle(color: MyStyle().darkColor),
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.email,
+                color: Colors.white,
+              ),
+              contentPadding: EdgeInsets.only(
+                left: 20.0,
+              ),
+              border: InputBorder.none,
+              hintText: 'User :',
+              hintStyle: TextStyle(color: MyStyle().darkColor)),
+        ),
       ),
     );
   }
@@ -163,6 +235,7 @@ class _AuthenState extends State<Authen> {
           showLogo(),
           showAppName(),
           userForm(),
+          mySizebox(),
           passwordForm(),
           showButton(),
         ],
